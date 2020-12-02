@@ -19,8 +19,7 @@ public class MainActivity extends AppCompatActivity implements  ButtonClickListe
     private TabLayout mTabLayout;
 
     private MessageFragment mMessageFragment;
-    private Fragment mInputFragment;
-    private FragmentManager mFragmentManager;
+    private ScreenSlidePagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements  ButtonClickListe
     }
 
     private void setUpPager() {
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(pagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
@@ -39,14 +38,14 @@ public class MainActivity extends AppCompatActivity implements  ButtonClickListe
     private void initViews() {
         mViewPager = findViewById(R.id.viewPager);
         mTabLayout = findViewById(R.id.tab);
+
     }
 
     @Override
     public void onButtonClicked(String message) {
-        mMessageFragment =(MessageFragment) getSupportFragmentManager().findFragmentById(R.id.viewPager);
-        mMessageFragment.displayMessage(message);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.viewPager,mMessageFragment).commit();
         mViewPager.setCurrentItem(1);
+        mMessageFragment = pagerAdapter.getMessageFragment();
+        mMessageFragment.displayMessage(message);
     }
 
 }

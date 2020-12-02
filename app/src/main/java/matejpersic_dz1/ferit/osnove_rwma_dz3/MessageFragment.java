@@ -14,17 +14,7 @@ import android.widget.TextView;
 
 public class MessageFragment extends Fragment {
 
-    private static final String BUNDLE_MESSAGE = "Hello World!";
-
-   private TextView mTextView;
-
-    public static MessageFragment newInstance(String message){
-        MessageFragment fragment=new MessageFragment();
-        Bundle args=new Bundle();
-        args.putString(BUNDLE_MESSAGE,message);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private TextView mTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +27,7 @@ public class MessageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mTextView=view.findViewById(R.id.tvfragmentmessage);
     }
+
 
     public void displayMessage(String message){
         mTextView.setText(!message.trim().isEmpty()?message:"Hello world!");

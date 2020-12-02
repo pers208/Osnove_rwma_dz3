@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/fragment_message"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#22ffff"
+    android:background="#3a3b69"
     tools:context=".MessageFragment">
 
     <TextView
@@ -16,6 +15,6 @@
         android:textSize="24sp"
         android:textColor="#ffffff"
         android:freezesText="true"
-        android:text="..." />
+        android:text="Hello there!" />
 
 </RelativeLayout>

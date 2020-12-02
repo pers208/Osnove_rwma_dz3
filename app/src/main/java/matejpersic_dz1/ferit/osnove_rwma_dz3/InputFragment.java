@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Message;
 import android.text.Editable;
@@ -20,26 +22,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link InputFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class InputFragment extends Fragment implements TextWatcher {
+import com.google.android.material.tabs.TabLayout;
+
+public class InputFragment extends MessageFragment implements TextWatcher {
 
     private static final String BUNDLE_MESSAGE = "Hello World!";
+
     private EditText mEditText;
     private Button mSubmitButton;
+    private String mMessageString;
 
     private ButtonClickListener mButtonClicklistener;
-
-    public static InputFragment newInstance(String message){
-        InputFragment fragment=new InputFragment();
-        Bundle args=new Bundle();
-        args.putString(BUNDLE_MESSAGE,message);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +49,7 @@ public class InputFragment extends Fragment implements TextWatcher {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mEditText=view.findViewById(R.id.edMessage);
-        mSubmitButton=(Button) view.findViewById(R.id.btSubmit);
+        mSubmitButton=view.findViewById(R.id.btSubmit);
         setUpListeners();
     }
 
@@ -64,10 +57,12 @@ public class InputFragment extends Fragment implements TextWatcher {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mButtonClicklistener.onButtonClicked(mEditText.getText().toString().trim());
+                mMessageString=mEditText.getText().toString();
+                mButtonClicklistener.onButtonClicked(mMessageString);
                 mEditText.setText("");
             }
         });
+        mEditText.addTextChangedListener(this);
     }
 
 
@@ -97,7 +92,7 @@ public class InputFragment extends Fragment implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        String mMessageString = s.toString();
+        mMessageString = s.toString();
     }
 
 }
